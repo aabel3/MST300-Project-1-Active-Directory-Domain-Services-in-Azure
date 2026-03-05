@@ -15,20 +15,16 @@ This project implements a complete Active Directory Domain Services environment 
 - Basic networking knowledge (IP addressing, DNS, subnetting)
 - Azure Portal navigation
 
-### Required Resources
+# Required Resources
 - Azure for Students account (CloudLab)
 - Assigned network address space from instructor (/24 network)
 - Student ID (for naming conventions)
 
-### Tools Needed
+# Tools Needed
 - Web browser (Chrome, Edge, or Firefox)
 - Screen recording software (for project submission)
 
----
-
-## Architecture
-
-### Network Topology
+# Network Topology
 ```
 MST300-project1-rg
 ├── MST300-vnet1 (Domain Controller Network)
@@ -40,7 +36,7 @@ MST300-project1-rg
     └── vnet3-subnet1 (Client)
 ```
 
-### Virtual Machines
+# Virtual Machines
 | VM Name | OS | Purpose | Network |
 |---------|-----|---------|---------|
 | dc-vm | Windows Server 2019 | Domain Controller | MST300-vnet1 |
@@ -52,9 +48,7 @@ MST300-project1-rg
 - **Domain Admin:** `studentID.admin`
 - **Domain User:** `studentID`
 
----
-
-## Subnetting Your Assigned Network
+# Subnetting Your Assigned Network
 
 Before creating virtual networks, you need to properly subnet your assigned /24 network address space.
 
@@ -67,17 +61,15 @@ You have been assigned a **/24 network** (e.g., `131.131.131.0/24`) and need to 
 3. **vnet2-subnet1** - Webserver subnet
 4. **vnet3-subnet1** - Client subnet
 
-### Subnetting Strategy
-
+# Subnetting Strategy
 Since you have a /24 network (256 IP addresses) and need 4 subnets, we'll use **/26 subnetting**.
-
 **Why /26?**
 - A /26 subnet provides 64 IP addresses (62 usable)
 - 256 ÷ 4 = 64 addresses per subnet
 - Each subnet gets equal space
 - Simple and clean division
 
-### Subnet Calculation Table
+# Subnet Calculation Table
 
 | Subnet Name | Network Address | Usable Range | Broadcast | CIDR | Hosts |
 |-------------|----------------|--------------|-----------|------|-------|
@@ -86,10 +78,8 @@ Since you have a /24 network (256 IP addresses) and need 4 subnets, we'll use **
 | vnet2-subnet1 | x.x.x.128/26 | x.x.x.129 - x.x.x.190 | x.x.x.191 | /26 | 62 |
 | vnet3-subnet1 | x.x.x.192/26 | x.x.x.193 - x.x.x.254 | x.x.x.255 | /26 | 62 |
 
-### Example with Actual IP (131.131.131.0/24)
-
+# Example with Actual IP (131.131.131.0/24)
 If your assigned network is `131.131.131.0/24`, your subnets would be:
-
 | Subnet Purpose | Subnet Address | Address Range | VNet |
 |----------------|----------------|---------------|------|
 | Domain Controller | 131.131.131.0/26 | 131.131.131.1 - 131.131.131.62 | MST300-vnet1 |
@@ -97,7 +87,7 @@ If your assigned network is `131.131.131.0/24`, your subnets would be:
 | Webserver | 131.131.131.128/26 | 131.131.131.129 - 131.131.131.190 | MST300-vnet2 |
 | Client | 131.131.131.192/26 | 131.131.131.193 - 131.131.131.254 | MST300-vnet3 |
 
-### Quick Subnetting Reference
+# Quick Subnetting Reference
 
 **CIDR Notation Cheat Sheet:**
 ```
@@ -183,17 +173,7 @@ vnet3: Private range (e.g., 10.1.0.0/24)
 
 **Recommendation:** Use **Option A** (all from your assigned /24) for simplicity and to demonstrate proper subnetting of your assigned address space.
 
-### Verification Checklist
-
-Before proceeding to Part 1, verify:
-
-- [ ] You have your assigned /24 network address
-- [ ] You've calculated four /26 subnets
-- [ ] Your subnets don't overlap
-- [ ] You've written down all subnet addresses
-- [ ] You understand which subnet goes in which VNet
-
-### Example Completed Subnetting Plan
+# Example Completed Subnetting Plan
 
 **Assigned Network:** `131.131.131.0/24`
 
@@ -226,12 +206,7 @@ A resource group is a logical container for Azure resources.
    - Click **"Review + create"**
    - Click **"Create"**
 
-### Verification:
-✅ Resource group appears in your resource groups list
-
----
-
-## Part 2: Virtual Networks Configuration
+# Part 2: Virtual Networks Configuration
 
 Virtual Networks (VNets) provide isolated network environments for your VMs.
 
@@ -347,22 +322,10 @@ MST300-vnet3 (131.131.131.192/26)
 └── vnet3-subnet1 (131.131.131.192/26)     ← Client here
 ```
 
-### Verification:
-✅ Three virtual networks created  
-✅ MST300-vnet1 has 2 subnets (vnet1-subnet1 and AzureBastionSubnet)  
-✅ MST300-vnet2 has 1 subnet (vnet2-subnet1)  
-✅ MST300-vnet3 has 1 subnet (vnet3-subnet1)  
-✅ All subnets use your assigned address space  
-✅ No overlapping IP addresses  
-✅ All subnets are /26 (64 addresses each)
-
----
-
-## Part 3: Azure Bastion Setup
-
+# Part 3: Azure Bastion Setup
 Azure Bastion provides secure RDP/SSH access without exposing VMs to the public internet.
 
-### Steps:
+# Steps:
 
 1. **Create Bastion Host**
    - Search for "Bastions" in Azure Portal
@@ -388,17 +351,10 @@ Azure Bastion provides secure RDP/SSH access without exposing VMs to the public 
    - Click **"Create"**
    - ⏱️ **Wait 10-15 minutes** for deployment
 
-### Verification:
-✅ Bastion host shows "Running" status  
-✅ Public IP is assigned
-
----
-
-## Part 4: Domain Controller VM
-
+# Part 4: Domain Controller VM
 The Domain Controller manages authentication, user accounts, and DNS.
 
-### Steps:
+# Steps:
 
 1. **Create Virtual Machine**
    - Search for "Virtual machines"
@@ -434,18 +390,11 @@ The Domain Controller manages authentication, user accounts, and DNS.
    - Click **"Create"**
    - ⏱️ Wait 3-5 minutes for deployment
 
-### Verification:
-✅ VM shows "Running" status  
-✅ No public IP assigned  
-✅ Connected to MST300-vnet1
-
----
-
-## Part 5: Active Directory Domain Services
+# Part 5: Active Directory Domain Services
 
 Configure the Domain Controller to provide Active Directory services.
 
-### Part 5.1: Install AD DS Role
+# Part 5.1: Install AD DS Role
 
 1. **Connect to dc-vm**
    - Go to dc-vm in Azure Portal
@@ -566,21 +515,10 @@ Configure the Domain Controller to provide Active Directory services.
    - Check ☑️ "Password never expires"
    - Click **"Next"** → **"Finish"**
 
-### Verification:
-✅ Domain controller is running  
-✅ DNS role installed  
-✅ Two users created: studentID.admin and studentID  
-✅ studentID.admin is in Domain Admins group  
-✅ studentID is in Domain Users group
-
----
-
-## Part 6: Webserver VM
-
+# Part 6: Webserver VM
 Create a Windows Server VM that will host IIS web server.
 
-### Steps:
-
+# Steps:
 1. **Create Virtual Machine**
    - Go to Virtual machines → **"+ Create"**
 
@@ -606,15 +544,7 @@ Create a Windows Server VM that will host IIS web server.
    - Click **"Review + create"**
    - Click **"Create"**
 
-### Verification:
-✅ webserver-vm is running  
-✅ Connected to MST300-vnet2  
-✅ No public IP
-
----
-
-## Part 7: Client VM
-
+# Part 7: Client VM
 Create a Windows 10 client workstation.
 
 ### Steps:
@@ -645,19 +575,10 @@ Create a Windows 10 client workstation.
    - Click **"Review + create"**
    - Click **"Create"**
 
-### Verification:
-✅ client-vm is running  
-✅ Connected to MST300-vnet3  
-✅ No public IP
-
----
-
-## Part 8: Virtual Network Peering
-
+# Part 8: Virtual Network Peering
 Connect the three isolated networks so VMs can communicate.
 
 ### Peering 1: vnet1 ↔ vnet2
-
 1. **Navigate to MST300-vnet1**
    - Go to Virtual Networks → MST300-vnet1
    - Click **"Peerings"** in left menu
@@ -695,15 +616,9 @@ Connect the three isolated networks so VMs can communicate.
    - **Virtual network:** MST300-vnet3
    - Click **"Add"**
 
-### Verification:
-✅ All three VNets show peering status as "Connected"  
-✅ Six peering connections total (bidirectional)
+# Part 9: Joining VMs to Domain
 
----
-
-## Part 9: Joining VMs to Domain
-
-### Part 9.1: Configure DNS Settings
+# Part 9.1: Configure DNS Settings
 
 Before joining VMs to the domain, they must use the Domain Controller as their DNS server.
 
@@ -786,15 +701,7 @@ Repeat the exact same process for client-vm:
 3. Join to domain using domain admin credentials
 4. Restart
 
-### Verification:
-✅ Both VMs joined to domain successfully  
-✅ Both VMs restarted  
-✅ DNS resolving correctly on both VMs
-
----
-
-## Part 10: IIS Configuration
-
+# Part 10: IIS Configuration
 Install and configure Internet Information Services on the webserver.
 
 ### Part 10.1: Install IIS Role
@@ -873,15 +780,7 @@ Install and configure Internet Information Services on the webserver.
    - File → Save
    - Close Notepad
 
-### Verification:
-✅ IIS is installed and running  
-✅ DNS record created for webserver-vm  
-✅ Default page title modified
-
----
-
-## Part 11: DNS Configuration
-
+# Part 11: DNS Configuration
 Ensure client-vm can resolve the webserver FQDN.
 
 ### Part 11.1: Test DNS Resolution
@@ -905,14 +804,7 @@ Ensure client-vm can resolve the webserver FQDN.
    ipconfig /registerdns
    ```
 
-### Verification:
-✅ DNS resolves webserver FQDN to correct IP  
-✅ Client can ping webserver by name
-
----
-
-## Part 12: User Permissions
-
+# Part 12: User Permissions
 Configure user permissions so domain users can log in via Bastion.
 
 ### Part 12.1: Configure Group Policy
@@ -983,15 +875,7 @@ Configure user permissions so domain users can log in via Bastion.
 4. **Restart all VMs**
    - Restart dc-vm, webserver-vm, and client-vm
 
-### Verification:
-✅ Domain Users can log on locally  
-✅ Domain Users can log on via Remote Desktop  
-✅ Group policy applied successfully
-
----
-
-## Part 13: Testing and Verification
-
+# Part 13: Testing and Verification
 Verify all components are working correctly.
 
 ### Test 1: Domain User Login
@@ -1037,18 +921,6 @@ Verify all components are working correctly.
 2. **On dc-vm, verify users**
    - Active Directory Users and Computers → Users
    - Should see: studentID and studentID.admin
-
-### Verification Checklist:
-✅ Can log into client-vm with domain user (not admin)  
-✅ Can access website using FQDN  
-✅ Website shows custom title  
-✅ DNS resolution works  
-✅ Both VMs appear in AD Computers  
-✅ Both users appear in AD Users  
-✅ Virtual network peering is active  
-✅ No public IPs on VMs (only Bastion)
-
----
 
 ## Troubleshooting Guide
 
@@ -1272,97 +1144,6 @@ Azure Bastion requires specific username formats:
    - In AD Users and Computers
    - User Properties → Account tab
    - Check "Unlock account"
-
----
-
-## Project Submission
-
-### Video Recording Requirements
-
-Create a video demonstration (under 7 minutes) showing:
-
-#### 1. Introduction (30 seconds)
-- Show your face on camera
-- State your name
-- Show CloudLab account
-- Show date and time
-- Confirm it's your own work
-
-#### 2. Azure Bastion Login (1 minute)
-- Connect to client-vm using domain user (NOT admin)
-- Show username: `studentID@studentID.MST300.com`
-- Successfully log in
-
-#### 3. Website Access (1.5 minutes)
-- From client-vm, open browser
-- Navigate to: `http://webserver-vm.studentID.MST300.com`
-- Show custom page title in browser tab
-
-#### 4. Virtual Networks (2 minutes)
-- In Azure Portal, show three VNets
-- Show subnets in each VNet
-- Show peering configuration
-- Demonstrate all peerings are "Connected"
-
-#### 5. Domain Controller (2 minutes)
-- Connect to dc-vm with admin account
-- Open Active Directory Users and Computers
-- Show domain name
-- Show two users: studentID and studentID.admin
-- Show computers: CLIENT-VM and WEBSERVER-VM
-
-#### 6. Conclusion (30 seconds)
-- Summarize what was demonstrated
-- Thank the viewer
-
-### Simple Video Script
-
-**Refer to the main guide for the detailed step-by-step script.**
-
-### Recording Software Options
-
-**Windows Game Bar (Built-in):**
-```
-Press Win + G
-Click record button
-Easy and quick
-```
-
-**OBS Studio (Free, Professional):**
-```
-Download from obsproject.com
-More features
-Better quality
-```
-
-**Microsoft Stream:**
-```
-Record directly on stream.microsoft.com
-No separate upload needed
-```
-
-### Submission Steps
-
-1. **Record video**
-   - Follow script above
-   - Keep under 7 minutes
-   - Ensure camera and mic are working
-
-2. **Review video**
-   - Watch entire video
-   - Verify audio is clear
-   - Verify screen is visible
-
-3. **Upload to Microsoft Stream**
-   - Go to Microsoft Stream
-   - Click "Upload"
-   - Select your video file
-   - Title: "MST300 Project 1 - [Your Name]"
-   - Set appropriate permissions for instructor
-
-4. **Submit to Blackboard**
-   - Copy video link from Stream
-   - Submit link in Blackboard assignment
 
 ---
 
