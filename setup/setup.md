@@ -1,41 +1,5 @@
 # MST300 Project 1: Active Directory Domain Services in Azure
 
-
-# Project Overview
-This project implements a complete Active Directory Domain Services environment in Microsoft Azure, featuring:
-- A domain controller managing authentication and DNS
-- A web server running IIS
-- A client workstation
-- Three isolated virtual networks connected via peering
-- Secure access through Azure Bastion
-
-# Required Knowledge
-- Basic understanding of Windows Server
-- Familiarity with Active Directory concepts
-- Basic networking knowledge (IP addressing, DNS, subnetting)
-- Azure Portal navigation
-
-# Required Resources
-- Azure for Students account (CloudLab)
-- Assigned network address space from instructor (/24 network)
-- Student ID (for naming conventions)
-
-# Tools Needed
-- Web browser (Chrome, Edge, or Firefox)
-- Screen recording software (for project submission)
-
-# Network Topology
-```
-MST300-project1-rg
-├── MST300-vnet1 (Domain Controller Network)
-│   ├── vnet1-subnet1 (Domain Controller)
-│   └── AzureBastionSubnet (Bastion Host)
-├── MST300-vnet2 (Webserver Network)
-│   └── vnet2-subnet1 (Webserver)
-└── MST300-vnet3 (Client Network)
-    └── vnet3-subnet1 (Client)
-```
-
 # Virtual Machines
 | VM Name | OS | Purpose | Network |
 |---------|-----|---------|---------|
