@@ -41,7 +41,7 @@ If your assigned network is `131.131.131.0/24`, your subnets would be:
 
 # Completed Subnetting Plan Topology (Example)
 
-**Assigned Network:** `131.131.131.0/24`
+**Assigned Network (Example):** `131.131.131.0/24`
 
 | Purpose | Subnet | VNet | Notes |
 |---------|--------|------|-------|
