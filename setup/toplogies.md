@@ -38,14 +38,3 @@ If your assigned network is `131.131.131.0/24`, your subnets would be:
 | Azure Bastion | 131.131.131.64/26 | 131.131.131.65 - 131.131.131.126 | MST300-vnet1 |
 | Webserver | 131.131.131.128/26 | 131.131.131.129 - 131.131.131.190 | MST300-vnet2 |
 | Client | 131.131.131.192/26 | 131.131.131.193 - 131.131.131.254 | MST300-vnet3 |
-
-# Completed Subnetting Plan Topology (Example)
-
-**Assigned Network (Example):** `131.131.131.0/24`
-
-| Purpose | Subnet | VNet | Notes |
-|---------|--------|------|-------|
-| Domain Controller | 131.131.131.0/26 | MST300-vnet1 | DC will get 131.131.131.4 |
-| Azure Bastion | 131.131.131.64/26 | MST300-vnet1 | MUST be named AzureBastionSubnet |
-| Webserver | 131.131.131.128/26 | MST300-vnet2 | Webserver will get 131.131.131.132 |
-| Client | 131.131.131.192/26 | MST300-vnet3 | Client will get 131.131.131.196 |
